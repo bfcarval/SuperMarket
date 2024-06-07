@@ -1,7 +1,7 @@
 package com.supermarket.api.feign;
 
-import com.supermarket.api.model.dto.ClientDTO;
-import com.supermarket.api.model.dto.ProductDTO;
+import com.supermarket.api.feign.model.ClientFeignResponse;
+import com.supermarket.api.feign.model.ProductFeignResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -11,9 +11,9 @@ import java.util.List;
 public interface MockClient {
 
     @GetMapping("/produtos-mnboX5IPl6VgG390FECTKqHsD9SkLS.json")
-    List<ProductDTO> getProducts();
+    List<ProductFeignResponse> getProducts();
 
 
     @GetMapping("/clientes-Vz1U6aR3GTsjb3W8BRJhcNKmA81pVh.json")
-    List<ClientDTO> getClients();
+    List<ClientFeignResponse> getClients();
 }

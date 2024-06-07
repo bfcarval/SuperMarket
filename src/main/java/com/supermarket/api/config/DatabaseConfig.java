@@ -4,12 +4,12 @@ import com.supermarket.api.database.dao.ClientDAO;
 import com.supermarket.api.database.dao.ProductDAO;
 import com.supermarket.api.database.dao.ShoppingDAO;
 import com.supermarket.api.feign.MockClient;
-import com.supermarket.api.model.dto.ShoppingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.ArrayList;
+import static com.supermarket.api.mapper.ClientMapper.clientFeignResponseToDTO;
+import static com.supermarket.api.mapper.ProductMapper.productFeignResponseToDTO;
+import static com.supermarket.api.mapper.ShoppingMapper.shoppingFeignResponseToDTO;
 
 @Configuration
 public class DatabaseConfig {
@@ -31,18 +31,15 @@ public class DatabaseConfig {
         final var clients = mockClient.getClients();
         final var products = mockClient.getProducts();
 
-        products.forEach(p -> productDAO.createProduct(p));
+        products.forEach(p -> productDAO.create(productFeignResponseToDTO(p)));
 
         clients.forEach(c -> {
-                    final var shopping = new ArrayList<ShoppingDTO>();
+                    var client = clientFeignResponseToDTO(c);
 
-                    c.getShopping().forEach(sh ->
-                            shopping.add(shoppingDAO.createShopping(sh, c))
-                    );
+                    c.getShopping().forEach(sh -> shoppingDAO.create(shoppingFeignResponseToDTO(sh), client));
 
-                    clientDAO.createClient(c, shopping);
+                    clientDAO.create(client);
                 }
         );
     }
-
 }

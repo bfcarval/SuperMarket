@@ -1,10 +1,11 @@
 package com.supermarket.api.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -13,18 +14,9 @@ import java.math.BigDecimal;
 @Builder
 public class ProductDTO {
 
-    @JsonProperty("codigo")
     private Long productId;
-
-    @JsonProperty("tipo_vinho")
     private String wineType;
-
-    @JsonProperty("preco")
     private BigDecimal price;
-
-    @JsonProperty("safra")
     private Long harvest;
-
-    @JsonProperty("ano_compra")
     private Long purchasedYear;
 }

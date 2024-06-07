@@ -1,5 +1,7 @@
 package com.supermarket.api.model.dto;
 
+import java.math.BigDecimal;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,9 +13,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ShoppingDTO {
+public class TopClientDTO {
 
-    private Long shoppingId;
-    private Long productId;
+    private String name;
     private Long quantity;
+    private BigDecimal total;
 }

@@ -30,12 +30,12 @@ swagger:
       name: Bruno Fernandes
       url: https://github.com/bfcarval
       email: bruno@algo.com
-  host: http://localhost:8080
+  host: localhost:8080
   base:
     path: /supermarket-api
-    package: com.supermarket.api.controller
+    package: com.supermarket.api.web.controller
 
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
-  packages-to-scan: com.supermarket.api.controller
+  packages-to-scan: com.supermarket.api.web.controller

@@ -1,17 +1,14 @@
 package com.supermarket.api.database.dao;
 
 import com.supermarket.api.database.repository.ShoppingRepository;
-import com.supermarket.api.mapper.ShoppingMapper;
 import com.supermarket.api.model.dto.ClientDTO;
 import com.supermarket.api.model.dto.ShoppingDTO;
 import com.supermarket.api.model.entity.ShoppingEntity;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class ShoppingDAO {
@@ -20,18 +17,23 @@ public class ShoppingDAO {
     private ShoppingRepository shoppingRepository;
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public ShoppingDTO createShopping(final ShoppingDTO shoppingDTO, final ClientDTO clientDTO) {
-        return ShoppingMapper.shoppingEntityToDTO(shoppingRepository.save(
+    public ShoppingEntity create(final ShoppingDTO shoppingDTO, final ClientDTO clientDTO) {
+        return shoppingRepository.save(
                 ShoppingEntity.builder()
                         .document(clientDTO.getDocument())
-                        .productId(shoppingDTO.getShoppingId())
+                        .productId(shoppingDTO.getProductId())
                         .quantity(shoppingDTO.getQuantity())
                         .build()
-        ));
+        );
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
-    public List<ShoppingEntity> findShoppingByIds(final List<Long> shoppingIds) {
-        return new ArrayList<>(shoppingRepository.findByShoppingIds(shoppingIds));
+    public List<ShoppingEntity> findByShoppingIds(final List<Long> shoppingIds) {
+        return shoppingRepository.findByShoppingIds(shoppingIds);
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public List<ShoppingEntity> findAll() {
+        return shoppingRepository.findAll();
     }
 }
